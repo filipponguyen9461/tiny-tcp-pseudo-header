@@ -51,3 +51,10 @@ Addresses may be dotted-quad strings, four-byte buffers, or arrays of byte value
 An odd-length buffer pads its final byte with a zero low byte, and that padding applies per buffer, not to the concatenation. If you split an odd-length segment across two calls to `onesComplementSum`, the result differs from summing it in one call. Pass the pseudo header and the segment as separate buffers, as the exported functions do, and the padding is applied correctly to each; do not pre-split the segment into arbitrary chunks unless each chunk is even-length.
 
 Also note that a computed UDP checksum of zero is transmitted as `0xffff`. `udpChecksum` applies that rule, but `checksum` does not, because `checksum` is also used for TCP where zero is a legal transmitted value.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
