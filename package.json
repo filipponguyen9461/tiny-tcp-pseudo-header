@@ -1,6 +1,6 @@
 {
   "name": "tiny-tcp-pseudo-header",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Calculates TCP and UDP checksums with IPv4 or IPv6 pseudo headers from segment data.",
   "type": "module",
   "main": "src/index.js",
